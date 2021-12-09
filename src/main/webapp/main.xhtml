@@ -16,7 +16,7 @@
     <ui:define name="content">
         <div class="table">
             <h:panelGroup id="table">
-                <h:dataTable value="#{resultBean.results}" var="result">
+                <h:dataTable styleClass="data-table" value="#{resultBean.results}" var="result">
                     <h:column headerClass="coords-column">
                         <f:facet name="header">X</f:facet>
                         <h:outputText value="#{result.x}"/>

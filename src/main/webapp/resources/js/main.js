@@ -69,23 +69,66 @@ $(function () {
         return x && y && r;
     }
 
+    function checkAnswer() {
+        return rectangle() || triangle() || circle();
+    }
+
+    function rectangle() {
+        return getX() <= 0 && getY() <= 0 && getX() >= -getR() && getY() >= -getR();
+    }
+
+    function triangle() {
+        return getX() >= 0 && getY() <= 0 && getY() >= getX() - getR() / 2;
+    }
+
+    function circle() {
+        return getX() <= 0 && getY() >= 0 && Math.sqrt(getX() * getX() + getY() * getY()) <= getR();
+    }
+
+    function drawPoint(x, y, r, fill) {
+        let point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        point.setAttribute("cx", (193 + x * 140 / r).toString());
+        point.setAttribute("cy", (193 - y * 140 / r).toString());
+        point.setAttribute("r", (4).toString());
+        point.setAttribute("fill-opacity", "0.85");
+        point.setAttribute("fill", fill);
+        point.classList.add("point");
+        document.querySelector("svg").appendChild(point);
+    }
+
+    function drawPoints() {
+        document.querySelectorAll(".point").forEach(point => point.remove());
+        if (checkAnswer()) {
+            drawPoint(getX(), getY(), getR(), "#26ffdf");
+        } else {
+            drawPoint(getX(), getY(), getR(), "#f26a1b");
+        }
+        $(".data-table tbody tr").each(function () {
+            let x = parseFloat($(this).find("td:nth-child(1)").text());
+            let y = parseFloat($(this).find("td:nth-child(2)").text());
+            let r = parseFloat($(this).find("td:nth-child(3)").text());
+            let hit = $(this).find("td:nth-child(6)").text();
+            if (!isNaN(x) && !isNaN(y)) {
+                if (getR() === r) {
+                    if (hit.includes("true")) {
+                        drawPoint(x, y, r, "#26ffdf");
+                    } else {
+                        drawPoint(x, y, r, "#f26a1b");
+                    }
+                } else {
+                    drawPoint(x, y, getR(), "#025159");
+                }
+            }
+        })
+    }
+
     document.getElementById("form:submit").addEventListener("click", function () {
-        validateData();
+        if (validateData()) {
+            drawPoints();
+        }
     })
 
-    // function checkAnswer() {
-    //     return rectangle() || triangle() || circle();
-    // }
-
-    // function rectangle() {
-    //     return param_x <= 0 && param_y <= 0 && param_x >= -param_r && param_y >= -param_r;
-    // }
-    //
-    // function triangle() {
-    //     return param_x >= 0 && param_y <= 0 && param_y >= param_x - param_r / 2;
-    // }
-    //
-    // function circle() {
-    //     return param_x <= 0 && param_y >= 0 && Math.sqrt(param_x * param_x + param_y * param_y) <= param_r;
-    // }
+    document.getElementById("form:reset").addEventListener("click", function () {
+        document.querySelectorAll(".point").forEach(point => point.remove());
+    })
 });
