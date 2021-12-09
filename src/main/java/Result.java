@@ -70,7 +70,7 @@ public class Result implements Serializable {
     }
 
     private boolean checkTriangle(double x, double y, double r) {
-        return x >= 0 && y <= 0 && y >= x - r / 2;
+        return x >= 0 && y <= 0 && y >= 2 * x - r;
     }
 
     private boolean checkRectangle(double x, double y, double r) {

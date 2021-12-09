@@ -1,15 +1,16 @@
 $(function () {
 
     function getX() {
-        if ($("input[type='radio']").is(":checked")) {
-            return parseFloat($("input[type='radio']:checked").val());
+        let x = document.getElementById("form:x-value").value;
+        if (!isNaN(parseFloat(x)) && isFinite(parseFloat(x))) {
+            return x;
         } else {
             return NaN;
         }
     }
 
     function getY() {
-        let y = $(".y-value").val();
+        let y = document.getElementById("form:y-value").value;
         let regex = /^[+-]?[0-9]{1,10}([.]?[0-9]{1,10})?$/;
         if (y.match(regex)) {
             return parseFloat(y);
@@ -19,7 +20,7 @@ $(function () {
     }
 
     function getR() {
-        let r = $(".r-value").val();
+        let r = document.getElementById("form:r-value").value;
         let regex = /^[+-]?[0-9]{1,10}([.]?[0-9]{1,10})?$/;
         if (r.match(regex)) {
             return parseFloat(r);
@@ -30,10 +31,10 @@ $(function () {
 
     function validateX() {
         if ($("input[type='radio']").is(":checked")) {
-            $("input[type='radio'] label").removeClass("radio-error");
+            $("input[type='radio']").removeClass("radio-error");
             return true;
         } else {
-            $("input[type='radio'] label").addClass("radio-error");
+            $("input[type='radio']").addClass("radio-error");
             return false;
         }
     }
@@ -42,10 +43,10 @@ $(function () {
         const MIN_Y = -3;
         const MAX_Y = 3;
         if (getY() >= MIN_Y && getY() <= MAX_Y) {
-            $(".y-value").removeClass('text-error');
+            $("#y-value").removeClass('text-error');
             return true;
         } else {
-            $(".y-value").addClass('text-error');
+            $("#y-value").addClass('text-error');
             return false;
         }
     }
@@ -54,10 +55,10 @@ $(function () {
         const MIN_R = 2;
         const MAX_R = 5;
         if (getR() >= MIN_R && getR() <= MAX_R) {
-            $(".r-value").removeClass('text-error');
+            $("#r-value").removeClass('text-error');
             return true;
         } else {
-            $(".r-value").addClass('text-error');
+            $("#r-value").addClass('text-error');
             return false;
         }
     }
@@ -78,7 +79,7 @@ $(function () {
     }
 
     function triangle() {
-        return getX() >= 0 && getY() <= 0 && getY() >= getX() - getR() / 2;
+        return getX() >= 0 && getY() <= 0 && getY() >= 2 * getX() - getR();
     }
 
     function circle() {
@@ -98,11 +99,6 @@ $(function () {
 
     function drawPoints() {
         document.querySelectorAll(".point").forEach(point => point.remove());
-        if (checkAnswer()) {
-            drawPoint(getX(), getY(), getR(), "#26ffdf");
-        } else {
-            drawPoint(getX(), getY(), getR(), "#f26a1b");
-        }
         $(".data-table tbody tr").each(function () {
             let x = parseFloat($(this).find("td:nth-child(1)").text());
             let y = parseFloat($(this).find("td:nth-child(2)").text());
@@ -122,13 +118,43 @@ $(function () {
         })
     }
 
+    document.querySelector("svg").addEventListener("click", function (e) {
+        if (validateR()) {
+            let x = (e.offsetX - 193) * getR() / 140;
+            let y = (193 - e.offsetY) * getR() / 140;
+            document.getElementById("form:x-value").value = x.toFixed(1);
+            document.getElementById("form:y-value").value = y.toFixed(1);
+            document.getElementById("form:submit").click();
+        } else {
+            alert("Choose a valid R value.");
+        }
+    })
+
+    document.querySelectorAll("input[type='radio']").forEach(x => x.addEventListener("click", function () {
+        document.getElementById("form:x-value").value = x.value;
+    }))
+
     document.getElementById("form:submit").addEventListener("click", function () {
         if (validateData()) {
             drawPoints();
+            if (checkAnswer()) {
+                drawPoint(getX(), getY(), getR(), "#26ffdf");
+            } else {
+                drawPoint(getX(), getY(), getR(), "#f26a1b");
+            }
         }
     })
 
     document.getElementById("form:reset").addEventListener("click", function () {
         document.querySelectorAll(".point").forEach(point => point.remove());
     })
+
+    document.getElementById("form:x-value").value = -4;
+    document.querySelector("input[type='radio']").checked = true;
+    if (parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text()) >= 2 && parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text()) <= 5) {
+        document.getElementById("form:r-value").value = parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text());
+    } else {
+        document.getElementById("form:r-value").value = 0;
+    }
+    drawPoints();
 });
