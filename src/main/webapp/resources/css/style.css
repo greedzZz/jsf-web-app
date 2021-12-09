@@ -1,0 +1,138 @@
+#header {
+    background-color: black;
+    color: white;
+    font-size: 41px;
+    font-weight: bold;
+    padding: 1.15%;
+    margin: -0.51% -0.51% 0 -0.51%;
+}
+
+#variant {
+    float: right;
+}
+
+a, a:visited {
+    text-align: center;
+    color: white;
+    font-weight: lighter;
+    text-decoration-line: none;
+    margin-left: 18.3%;
+}
+
+svg {
+    margin: 1.28% 0 0 0.64%;
+}
+
+.axis/*, button[type="button"]:hover */{
+    font-weight: bold;
+}
+
+.form {
+    margin-left: 0.64%;
+}
+
+/*button[type = "button"] {*/
+/*    width: 53px;*/
+/*    margin-right: 0.67%;*/
+/*    background-color: white;*/
+/*    border-width: 1px;*/
+/*}*/
+
+.main-buttons input[type="submit"] {
+    width: 110px;
+    background-color: white;
+    border-width: 1px;
+    margin-right: 3%;
+}
+
+.main-buttons {
+    margin-left: 3.88%;
+}
+
+::placeholder, input[type="text"] {
+    /*font-family: 'Roboto Slab', serif;*/
+    text-align: center;
+}
+
+.table {
+    width: 70%;
+    float: right;
+    margin-top: 1.28%;
+    margin-right: 0.64%;
+}
+
+th {
+    font-size: 30px;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.table td {
+    text-align: center;
+    font-size: 22px;
+}
+
+.table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+form table {
+    margin-left: -0.5%;
+}
+
+form td {
+    padding-right: 7px;
+}
+
+.coords-column {
+    width: 8%;
+}
+
+.time-column {
+    width: 27%;
+}
+
+.shape {
+    fill: lightgray;
+    stroke: gray;
+    stroke-width: 2;
+    fill-opacity: 0.5;
+    stroke-opacity: 0.2;
+}
+
+.shape:hover {
+    fill-opacity: 0.1;
+}
+
+.main-buttons input[type="submit"]:hover {
+    color: white;
+    background-color: black;
+}
+
+.text-error/*, .buttons-error button*/ {
+    border-color: red;
+}
+
+.radio-error {
+    color: red;
+}
+
+.clock {
+    font-size: 41px;
+    font-weight: bold;
+    margin-left: 44%;
+    margin-top: 15%;
+}
+
+.time {
+    margin-left: 0.8%;
+}
+
+/*button[type="button"].selected-r {*/
+/*    color: white;*/
+/*    background-color: black;*/
+/*}*/
