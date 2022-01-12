@@ -94,7 +94,7 @@ $(function () {
         point.setAttribute("fill-opacity", "0.85");
         point.setAttribute("fill", fill);
         point.classList.add("point");
-        document.querySelector("svg").appendChild(point);
+        $("svg").append(point);
     }
 
     function drawPoints() {
@@ -118,7 +118,7 @@ $(function () {
         })
     }
 
-    document.querySelector("svg").addEventListener("click", function (e) {
+    $("svg").click(function (e) {
         if (validateR()) {
             let x = (e.offsetX - 193) * getR() / 140;
             let y = (193 - e.offsetY) * getR() / 140;
@@ -151,8 +151,10 @@ $(function () {
 
     document.getElementById("form:x-value").value = -4;
     document.querySelector("input[type='radio']").checked = true;
-    if (parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text()) >= 2 && parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text()) <= 5) {
-        document.getElementById("form:r-value").value = parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text());
+    if (parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text()) >= 2 &&
+        parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text()) <= 5) {
+        document.getElementById("form:r-value").value =
+            parseFloat($(".data-table tbody tr").last().find("td:nth-child(3)").text());
     } else {
         document.getElementById("form:r-value").value = 0;
     }

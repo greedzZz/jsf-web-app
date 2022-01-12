@@ -1,14 +1,12 @@
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 public class Result implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "entrySequence", sequenceName = "ENTRY_SEQUENCE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entrySequence")
     private int id;
     private double x;
     private double y;
